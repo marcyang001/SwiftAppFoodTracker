@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     //A control (UIControl) is a subclass of UIView
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var rateControl: RatingControl!
     
     
     
@@ -112,10 +113,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     //Target-action design pattern
-    @IBAction func setDefaultLabelText(_ sender: UIButton) {
-        mealNameLabel.text = "Default Text"
-        
-    }
+//    @IBAction func setDefaultLabelText(_ sender: UIButton) {
+//        mealNameLabel.text = "Default Text"
+//        
+//    }
     
     
     

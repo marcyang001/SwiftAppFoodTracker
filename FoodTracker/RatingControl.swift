@@ -11,13 +11,27 @@ import UIKit
 
 //This lets Interface Builder instantiate and draw a copy of your control directly in the canvas. 
 // The interface now has a live copy of the Controller
-c
+
+/*
+ 
+ Accessibility label:
+    - A short, localized word or phrase that succinctly describes the control or view, but does not identify the element’s type.
+ 
+ Accessibility value:
+    - The current value of an element, when the value is not represented by the label. For example, the label for a slider might be “Speed,” but its current value might be “50%.”
+ 
+ Accessibility hint: 
+    - A brief, localized phrase that describes the results of an action on an element. Examples are “Adds a title” or “Opens the shopping list.”
+ 
+ */
+
 @IBDesignable class RatingControl: UIStackView {
     
-    //    a custom view subclass of UIView.
+    // a custom view subclass of UIView.
     
     //MARK: Properties
     private var ratingButtons = [UIButton]()
+    
     
     // rating score
     var rating = 0 {
@@ -108,7 +122,10 @@ c
         
         
         
-        for _ in 0..<countMyStar {
+        for index in 0..<countMyStar {
+            
+            
+            
             // Create the button
             let button = UIButton()
             
@@ -131,6 +148,11 @@ c
             button.translatesAutoresizingMaskIntoConstraints = false
             button.heightAnchor.constraint(equalToConstant: self.starSize.height).isActive = true
             button.widthAnchor.constraint(equalToConstant: self.starSize.width).isActive = true
+            
+            
+            // Set the accessibility label
+            button.accessibilityLabel = "Set \(index + 1) star rating"
+            
             
             
             // Setup the button action
@@ -164,8 +186,34 @@ c
         
         
         for (index, button) in ratingButtons.enumerated() {
+            
             // If the index of a button is less than the rating, that button should be selected.
             button.isSelected = index < rating
+            
+            // check whether the button is the currently selected button
+            // Set the hint string for the currently selected star
+            let hintString: String?
+            if rating == index + 1 {
+                hintString = "Tap to reset the rating to zero."
+            } else {
+                hintString = nil
+            }
+            
+            // calculate the value based on the control’s rating.
+            let valueString: String
+            switch (rating) {
+            case 0:
+                valueString = "No rating set."
+            case 1:
+                valueString = "1 star set."
+            default:
+                valueString = "\(rating) stars set."
+            }
+            
+            // Assign the hint string and value string
+            button.accessibilityHint = hintString
+            button.accessibilityValue = valueString
+            
         }
     
     }
